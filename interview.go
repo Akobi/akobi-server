@@ -11,8 +11,8 @@ import (
 // Interview is the main interview interface
 type Interview interface {
 	log.Emitter
-	// message.Emitter
-	// message.Receiver
+	message.Emitter
+	message.Receiver
 
 	// Start the interview. Calling Start() implies that a client
 	// has successfully authenticated and entered the interview,
@@ -113,7 +113,7 @@ func (i *akobiInterview) ExpectClient(role ClientRole, name, email string) error
 }
 
 func (i *akobiInterview) ExpectApplication(app Application) error {
-	appKey := i.GetMessageType()
+	appKey := app.GetMessageType()
 
 	if _, ok := i.expectedApplications[appKey]; ok {
 		return errAlreadyExpectedApp
